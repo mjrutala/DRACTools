@@ -13,11 +13,7 @@ def pip_install(req_file, download_dir):
     
     if download_dir[-1] != '/':
         download_dir += '/'
-    output_file = req_file.split('.')[0] + 'DRAC.txt'
-    
-    def pip_install(req_line):
-        subprocess.check_call([sys.executable, '-m', 'pip', 'install', req_line])
-    
+    output_file = req_file.split('.txt')[0] + 'DRAC.txt'
     
     with open(req_file) as f:
         requirements = [line.strip() for line in f if line.strip() and not line.startswith('#')]
@@ -28,7 +24,8 @@ def pip_install(req_file, download_dir):
         except:
             subprocess.check_call([sys.executable, '-m', 'pip', 'download', '--no-deps', req, '-d', download_dir])
             path = glob.glob(download_dir + '/*{}*-none-any*'.format(req.split('=')[0]))
-            subprocess.check_call([sys.executable, '-m', 'pip', 'install', path[0]])
+            if len(path) > 0:
+                subprocess.check_call([sys.executable, '-m', 'pip', 'install', path[0]])
     
     # Generate a requirements.txt
     print('---------------------------------')
