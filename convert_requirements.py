@@ -36,8 +36,8 @@ def pip_install(req_file, download_dir):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Convert pip requirements for DRAC use.")
-    parser.add_argument("requirements-file", help="The original, non-DRAC requirements file (e.g., requirements.txt)", default='requirements.txt')
+    parser.add_argument("req", help="The original, non-DRAC requirements file (e.g., requirements.txt)", default='requirements.txt')
     parser.add_argument("-d", "--download-dir", help="Location for pip files that aren't on DRAC to be downloaded.", default='./')
     args = parser.parse_args()
     
-    pip_install(args.requirements_file, args.download_dir)
+    pip_install(args.req, args.download_dir)
