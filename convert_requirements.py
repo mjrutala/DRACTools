@@ -12,16 +12,23 @@ def pip_install(req_file, download_dir):
     import glob
     import os
     
+    # Get absolute paths for saving later on
     req_file = os.path.abspath(req_file)
     download_dir = os.path.abspath(download_dir)
     
+    # If the download directory is missing the final /, add one
     if download_dir[-1] != '/':
         download_dir += '/'
+        
+    # Parse the original requirements.txt for a new filename
     output_file = req_file.split('.txt')[0] + '_DRAC.txt'
     
+    # Read all packages in the requirements.txt
     with open(req_file) as f:
         requirements = [line.strip() for line in f if line.strip() and not line.startswith('#')]
     
+    # For each requirement, either install it from DRAC (--no-index) or 
+    # download and install it (--no-deps)
     for req in requirements:
         try:
             subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--no-index', req])
@@ -32,11 +39,22 @@ def pip_install(req_file, download_dir):
                 subprocess.check_call([sys.executable, '-m', 'pip', 'install', path[0]])
     
     # Generate a requirements.txt
-    print('---------------------------------')
-    print(output_file)
     subprocess.check_call([sys.executable, '-m', 'pip', 'freeze', '--local', '>', output_file])
     
 if __name__ == "__main__":
+    desc = """
+    This python function can be used from the command line to convert pip-style requirements.txt to that expected by DRAC.
+    Following this example, but using this function instead of individually installing packages:
+        https://docs.alliancecan.ca/wiki/Python#Creating_virtual_environments_inside_of_your_jobs
+    That is, enter the following, paying care that you know what each step does:
+        module load python/3.11
+        ENVDIR=/tmp/$RANDOM
+        virtualenv --no-download $ENVDIR
+        source $ENVDIR/bin/activate
+        pip install --no-index --upgrade pip
+        python convert_requirements.py REQUIREMENTS.TXT -d ../PATH/TO/DOWNLOAD/
+        deactivate
+    """
     import argparse
     parser = argparse.ArgumentParser(description="Convert pip requirements for DRAC use.")
     parser.add_argument("req", help="The original, non-DRAC requirements file (e.g., requirements.txt)", default='requirements.txt')
