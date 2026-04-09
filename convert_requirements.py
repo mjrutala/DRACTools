@@ -27,10 +27,12 @@ def pip_install(req_file, download_dir):
             subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--no-index', req])
         except:
             subprocess.check_call([sys.executable, '-m', 'pip', 'download', '--no-deps', req, '-d', download_dir])
-            path = glob.glob(download_dir + '/*{}*'.format(req.split('=')[0]))
+            path = glob.glob(download_dir + '/*{}*-none-any*'.format(req.split('=')[0]))
             subprocess.check_call([sys.executable, '-m', 'pip', 'install', path[0]])
     
     # Generate a requirements.txt
+    print('---------------------------------')
+    print(output_file)
     subprocess.check_call([sys.executable, '-m', 'pip', 'freeze', '--local', '>', output_file])
     
 if __name__ == "__main__":
