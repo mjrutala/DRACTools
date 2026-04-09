@@ -10,10 +10,14 @@ def pip_install(req_file, download_dir):
     import subprocess
     import sys
     import glob
+    import os
+    
+    req_file = os.path.abspath(req_file)
+    download_dir = os.path.abspath(download_dir)
     
     if download_dir[-1] != '/':
         download_dir += '/'
-    output_file = req_file.split('.txt')[0] + 'DRAC.txt'
+    output_file = req_file.split('.txt')[0] + '_DRAC.txt'
     
     with open(req_file) as f:
         requirements = [line.strip() for line in f if line.strip() and not line.startswith('#')]
