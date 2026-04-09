@@ -38,6 +38,7 @@ def pip_install(req_file, download_dir):
             if len(path) > 0:
                 subprocess.check_call([sys.executable, '-m', 'pip', 'install', path[0]])
     
+    print(output_file)
     # Generate a requirements.txt
     subprocess.check_call([sys.executable, '-m', 'pip', 'freeze', '--local', '>', output_file])
     
