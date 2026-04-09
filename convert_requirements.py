@@ -20,8 +20,8 @@ def pip_install(req_file, download_dir):
     if download_dir[-1] != '/':
         download_dir += '/'
         
-    # Parse the original requirements.txt for a new filename
-    output_file = req_file.split('.txt')[0] + '_DRAC.txt'
+    # # Parse the original requirements.txt for a new filename
+    # output_file = req_file.split('.txt')[0] + '_DRAC.txt'
     
     # Read all packages in the requirements.txt
     with open(req_file) as f:
@@ -38,9 +38,9 @@ def pip_install(req_file, download_dir):
             if len(path) > 0:
                 subprocess.check_call([sys.executable, '-m', 'pip', 'install', path[0]])
     
-    print(output_file)
-    # Generate a requirements.txt
-    subprocess.check_call([sys.executable, '-m', 'pip', 'freeze', '--local', '>', output_file])
+    # print(output_file)
+    # # Generate a requirements.txt
+    # subprocess.check_call([sys.executable, '-m', 'pip', 'freeze', '--local', '>', output_file])
     
 if __name__ == "__main__":
     desc = """This python function can be used from the command line to convert pip-style requirements.txt to that expected by DRAC."""
