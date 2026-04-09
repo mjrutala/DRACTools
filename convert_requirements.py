@@ -56,7 +56,7 @@ if __name__ == "__main__":
         deactivate
     """
     import argparse
-    parser = argparse.ArgumentParser(description="Convert pip requirements for DRAC use.")
+    parser = argparse.ArgumentParser(description=desc)
     parser.add_argument("req", help="The original, non-DRAC requirements file (e.g., requirements.txt)", default='requirements.txt')
     parser.add_argument("-d", "--download-dir", help="Location for pip files that aren't on DRAC to be downloaded.", default='./')
     args = parser.parse_args()
