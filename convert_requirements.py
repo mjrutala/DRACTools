@@ -43,17 +43,17 @@ def pip_install(req_file, download_dir):
     
 if __name__ == "__main__":
     desc = """
-    This python function can be used from the command line to convert pip-style requirements.txt to that expected by DRAC.
-    Following this example, but using this function instead of individually installing packages:
-        https://docs.alliancecan.ca/wiki/Python#Creating_virtual_environments_inside_of_your_jobs
-    That is, enter the following, paying care that you know what each step does:
-        module load python/3.11
-        ENVDIR=/tmp/$RANDOM
-        virtualenv --no-download $ENVDIR
-        source $ENVDIR/bin/activate
-        pip install --no-index --upgrade pip
-        python convert_requirements.py REQUIREMENTS.TXT -d ../PATH/TO/DOWNLOAD/
-        deactivate
+    This python function can be used from the command line to convert pip-style requirements.txt to that expected by DRAC.\n
+    Following this example, but using this function instead of individually installing packages:\n
+        https://docs.alliancecan.ca/wiki/Python#Creating_virtual_environments_inside_of_your_jobs\n
+    That is, enter the following, paying care that you know what each step does:\n
+        module load python/3.11\n
+        ENVDIR=/tmp/$RANDOM\n
+        virtualenv --no-download $ENVDIR\n
+        source $ENVDIR/bin/activate\n
+        pip install --no-index --upgrade pip\n
+        python convert_requirements.py REQUIREMENTS.TXT -d ../PATH/TO/DOWNLOAD/\n
+        deactivate\n
     """
     import argparse
     parser = argparse.ArgumentParser(description=desc)
